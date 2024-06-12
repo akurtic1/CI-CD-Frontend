@@ -14,10 +14,19 @@ jobs:
       uses: actions/checkout@v2
 
     - name: List root directory contents
-      run: ls -R .
+      run: |
+        echo "Listing root directory contents:"
+        ls -R .
+
+    - name: List .github directory contents
+      run: |
+        echo "Listing .github directory contents:"
+        ls -R .github
 
     - name: List .github/workflows directory contents
-      run: ls -R .github/workflows
+      run: |
+        echo "Listing .github/workflows directory contents:"
+        ls -R .github/workflows
 
     - name: Azure Login
       uses: azure/login@v1
