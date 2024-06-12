@@ -46,8 +46,9 @@ jobs:
           az storage blob upload-batch \
             --destination ${{ secrets.STORAGE_CONTAINER_NAME }} \
             --source .github/workflows \
-            --account-name "cloudresume992024 " \
+            --account-name cloudresume992024 \
             --account-key "${{ secrets.AZURE_STORAGE_KEY }}"
+      
 
     - name: Purge Azure CDN endpoint
       run: |
