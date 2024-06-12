@@ -1,5 +1,5 @@
 name: Deploy to Azure Storage
-##22
+
 on:
   push:
     branches:
@@ -13,6 +13,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: List directory contents
+      run: ls -R
+
     - name: Azure Login
       uses: azure/login@v1
       with:
@@ -22,7 +25,7 @@ jobs:
       run: |
         az storage blob upload-batch \
           --destination ${{ secrets.STORAGE_CONTAINER_NAME }} \
-          --source ci-cd-frontend/CI-CD-Frontend \
+          --source CI-CD-Frontend \
           --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }}
       env:
         AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
