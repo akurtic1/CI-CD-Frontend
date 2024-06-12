@@ -1,5 +1,5 @@
 name: Deploy to Azure Storage
-#222
+
 on:
   push:
     branches:
@@ -32,6 +32,14 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Debug environment variables
+      run: |
+        echo "STORAGE_CONTAINER_NAME: ${{ secrets.STORAGE_CONTAINER_NAME }}"
+        echo "STORAGE_ACCOUNT_NAME: ${{ secrets.STORAGE_ACCOUNT_NAME }}"
+        echo "AZURE_STORAGE_KEY is set"
+        echo "RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}"
+        echo "CDN_ENDPOINT_NAME: ${{ secrets.CDN_ENDPOINT_NAME }}"
 
     - name: Upload to Azure Storage Blob
       run: |
