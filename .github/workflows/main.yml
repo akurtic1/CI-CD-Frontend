@@ -13,8 +13,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: List directory contents
-      run: ls -R
+    - name: List root directory contents
+      run: ls -R .
+
+    - name: List .github/workflows directory contents
+      run: ls -R .github/workflows
 
     - name: Azure Login
       uses: azure/login@v1
