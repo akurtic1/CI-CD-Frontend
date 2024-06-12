@@ -1,5 +1,5 @@
-name: Deploy Website
-
+name: Deploy to Azure Storage
+##
 on:
   push:
     branches:
@@ -13,26 +13,24 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Setup Node.js (if your website uses Node.js for build tools)
-      uses: actions/setup-node@v2
+    - name: Azure Login
+      uses: azure/login@v1
       with:
-        node-version: '14'
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Install dependencies (if applicable)
-      run: npm install
-
-    - name: Build website (if applicable)
-      run: npm run build
-
-    - name: Upload to Azure Storage
-      uses: azure/azure-storage-blob-upload@v1
-      with:
-        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-        source: 'C:\Users\akurt\visitor-counter-backend\ci-cd-frontend\CI-CD-Frontend'  # e.g., 'build' for React, 'dist' for Vue
-        container: ${{ secrets.STORAGE_CONTAINER_NAME }}
-        extra-args: '--pattern "index.html" --cache-control "no-cache"'
+    - name: Upload to Azure Storage Blob
+      run: |
+        az storage blob upload-batch \
+          --destination ${{ secrets.STORAGE_CONTAINER_NAME }} \
+          --source ci-cd-frontend/CI-CD-Frontend \
+          --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }}
+      env:
+        AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
 
     - name: Purge Azure CDN endpoint
       run: |
-        az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
-        az cdn endpoint purge -g ${{ secrets.RESOURCE_GROUP }} -n ${{ secrets.CDN_ENDPOINT_NAME }} --profile-name ${{ secrets.CDN_PROFILE_NAME }} --content-paths '/*'
+        az cdn endpoint purge \
+          --resource-group ${{ secrets.RESOURCE_GROUP }} \
+          --profile-name <YourCDNProfileName> \
+          --name ${{ secrets.CDN_ENDPOINT_NAME }} \
+          --content-paths '/*'
