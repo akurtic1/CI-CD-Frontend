@@ -1,4 +1,4 @@
-name: Deploy Website
+name: Deploy to Azure Storage
 
 on:
   push:
@@ -13,26 +13,17 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Setup Node.js (if your website uses Node.js for build tools)
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-
-    - name: Install dependencies (if applicable)
-      run: npm install
-
-    - name: Build website (if applicable)
-      run: npm run build
-
     - name: Upload to Azure Storage
-      uses: azure/azure-storage-blob-upload@v1
+      uses: azure/azure-storage-blob@v1
       with:
         connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}
-        source: 'C:\Users\akurt\visitor-counter-backend\ci-cd-frontend\CI-CD-Frontend'  # e.g., 'build' for React, 'dist' for Vue
-        container: ${{ secrets.STORAGE_CONTAINER_NAME }}
-        extra-args: '--pattern "index.html" --cache-control "no-cache"'
+        container-name: ${{ secrets.STORAGE_CONTAINER_NAME }}
+        source: '.'  # The current directory where your HTML and CSS files are located
+        destination: '/'
+        clean: true
 
     - name: Purge Azure CDN endpoint
-      run: |
-        az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
-        az cdn endpoint purge -g ${{ secrets.RESOURCE_GROUP }} -n ${{ secrets.CDN_ENDPOINT_NAME }} --profile-name ${{ secrets.CDN_PROFILE_NAME }} --content-paths '/*'
+      uses: azure/azure-cli@v1
+      with:
+        inlineScript: |
+          az cdn endpoint purge -g ${{ secrets.RESOURCE_GROUP }} -n ${{ secrets.CDN_ENDPOINT_NAME }} --profile-name <YourCDNProfileName> --content-paths '/*'
