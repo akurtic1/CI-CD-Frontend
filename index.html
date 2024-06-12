@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Resume</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Admir Kurtic</h1>
+            <p>Cloud Engineer</p>
+            <div id="visitor-counter">Visitor Count: <span id="count">0</span></div>
+        </header>
+        <section class="contact">
+            <h2>Contact Information</h2>
+            <p>Email: a.kurtic@outlook.com</p>
+            <p>Phone: +387 62005111</p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/admir-kurtic-946b65131/" target="_blank">Click on the link</a></p>
+            <p>Github: <a href="https://github.com/akurtic1" target="_blank">Click on the link</a></p>
+        </section>
+
+
+        <section class="experience">
+            <h2>Personal Projects</h2>
+            <b><p>OnBoard - Automator </b> <a href="https://github.com/akurtic1/Onboard-Automator" target="_blank">Click on the link</a>
+            <p>Implemented an infrastructure-as-code approach to provision and manage virtual machines in Azure, using ARM templates and Bicep</p> 
+            <p>Features: Bicep, ARM Template, Bicep, Azure CLI</p> 
+
+            <b><p> NetMaze </b> <a href="https://github.com/akurtic1/NetMaze" target="_blank">Click on the link</a>
+            <p>Designed a hybrid networking environment where on-premises networks connect securely to Azure resources using Azure's networking capabilities, 
+                ensuring secure data transition and effective resource access controls.</p> 
+            <p>Features: Azure Virtual Network, Azure VPN Gateway, NSGs, Azure Bastion</p> 
+        </section>
+        <section class="experience">
+            <h2>Work Experience</h2>
+            <h3>Product Administrator & Support</h3>
+            <p>The Clay Media (2022 - Present) - Remote </p>
+            <ul>
+                <li>Proficiently operated CRM software "Keap" to maintain up-to-date customer records,
+                    deliver responsive support, and optimize communication channels</li>
+                <li>Managing a range of product files, from images to data backups, including the
+                    creation and administration of buckets on AWS S3,reducing retrieval time by 15%</li>
+                <li>Increased user engagement by 10% through consistent and well-organized WordPress
+                    product updates
+                    </li>
+                <li>Assisted and provided support via email using Helpscout, maintaining a 95% customer
+                    satisfaction rating.
+                    </li>
+            </ul>
+            <h3>IT Technician</h3>
+            <p>XYZ Company (2019 - 2021)</p>
+            <ul>
+                <li>Provide technical support: Respond to IT support requests from end-users via email,
+                    phone, or in person.
+                    .</li>
+                <li>•Software installation and updates: Install, upgrade, and patch software applications on
+                    end-user devices
+                    </li>
+                <li>Maintaining and installing operating systems (Windows), hardware components, and
+                    software drivers,resulting in a 90% success rate in problem resolution
+                    </li>
+            </ul>
+        </section>
+        <section class="education">
+            <h2>Education</h2>
+            <p>Bachelor of Engineering, Major in Information Technology</p>
+            <p>International business-information academy" (IPI Academy) 2018 – 2022</p>
+        </section>
+        <section class="education">
+            <h2>Certificates</h2>
+            <p>Microsoft Certified: Azure Fundamentals <a href="https://learn.microsoft.com/en-us/users/admirkurtic/credentials/8bfe0f0cb67bff9f?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank">Click on the link</a></p>
+            <p>Microsoft Certified: Security, Compliance, and Identity Fundamentals <a href="https://learn.microsoft.com/en-us/users/admirkurtic/credentials/659fca459505a763?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank">Click on the link</a></p>
+            <p>Microsoft 365 Certified: Fundamentals <a href="https://learn.microsoft.com/en-us/users/admirkurtic/credentials/2e27d2377be99017?ref=https%3A%2F%2Fwww.linkedin.com%2F" target="_blank">Click on the link</a></p>
+
+        <section class="skills">
+            <h2>Skills</h2>
+            <p>Customer Support, CRM(Keap), Windows Troubleshooting, Hardware & Software Troubleshooting, Microsoft Azure, AWS S3, Asana, HTML/CSS, Wordpress</p>
+        </section>
+
+        <script>
+            async function fetchVisitorCount() {
+                try {
+                    const response = await fetch('https://countervisit.azurewebsites.net/api/VisitorCounter');
+                    const data = await response.json();
+                    document.getElementById('count').textContent = data.count;
+                } catch (error) {
+                    console.error('Error fetching visitor count:', error);
+                }
+            }
+          
+            document.addEventListener('DOMContentLoaded', fetchVisitorCount);
+          </script>
+          
+    </div>
+</body>
+</html>
