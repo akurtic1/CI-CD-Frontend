@@ -31,6 +31,6 @@ jobs:
       run: |
         az cdn endpoint purge \
           --resource-group ${{ secrets.RESOURCE_GROUP }} \
-          --profile-name <YourCDNProfileName> \
+          --profile-name cloudresumefront \
           --name ${{ secrets.CDN_ENDPOINT_NAME }} \
           --content-paths '/*'
