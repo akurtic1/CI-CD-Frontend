@@ -37,7 +37,7 @@ jobs:
       run: |
         az storage blob upload-batch \
           --destination ${{ secrets.STORAGE_CONTAINER_NAME }} \
-          --source CI-CD-Frontend \
+          --source .github/workflows
           --account-name ${{ secrets.STORAGE_ACCOUNT_NAME }}
       env:
         AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
